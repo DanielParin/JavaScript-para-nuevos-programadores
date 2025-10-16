@@ -1,5 +1,9 @@
 # JavaScript
 
+<p align="center">
+  <img src="../Images/js.png" width="400" heigth="400" />
+</p>
+
 JavaScript (JS) es un **lenguaje de programación** que se utiliza principalmente para dar interactividad y dinamismo a las páginas web.  
 Mientras que **HTML** se encarga de la estructura y **CSS** del diseño visual, **JavaScript** controla el comportamiento y la lógica.
 
