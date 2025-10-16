@@ -345,3 +345,66 @@ console.log(personaDatos);
 }
 */
 ```
+
+### Iteradores
+
+Los iteradores son **métodos** propios de muchos lenguajes de programación que nso permiten crear un bucle en el código.
+
+Los podemos dividir entre **definidos** e **indefinidos**:
+
+- **Definidos**
+  
+  Sabemos con certeza cuantas veces va a iterar.
+  - Bucle **for**:
+
+    El bucle for ejecuta un bloque de código un número determinado de veces usando un contador.
+
+    ```js
+    let numero = 1;
+
+    for (let i = 0; i < 4; i++) { 
+    // Se define la variable/condicion inicial ( i vale 0 'let i = 0'), mientras que sea (menor que 4 en este caso 'i < 4'), mientras hace (cada iteración vale 1 más 'i++')
+      
+      console.log(numero);
+      numero+=1; // Lo mismo que numero = numero+1;
+    }
+    // Salida: 1, 2, 3, 4
+    ```
+
+    - Bucle **for in**:
+
+      Recorre las propiedades enumerables de un objeto o los índices de un array.
+
+      ```js
+      let array = ["A", "B", "C"];
+
+      for (let i in array) { 
+        // 'i' es la variable que va tomando **cada índice del array**
+        // Primero i = 0, luego i = 1, luego i = 2
+        console.log("Índice:", i, "Valor:", array[i]); 
+        // Accedemos al valor usando array[i] porque 'i' es solo el índice
+      }
+      // Salida: 
+      // Índice: 0 Valor: A
+      // Índice: 1 Valor: B
+      // Índice: 2 Valor: C
+      ```
+
+    - Bucle **for of**:
+
+      Recorre los valores de objetos **iterables** como arrays, strings o Sets.
+
+      ```js
+      let array = ["A", "B", "C"];
+
+      for (let valor of array) { 
+        // 'valor' es la variable que va tomando cada elemento del array directamente
+        console.log("Valor:", valor);
+      }
+      // Salida:
+      // Valor: A
+      // Valor: B
+      // Valor: C
+      ```
+
+- **Indefinidos**
