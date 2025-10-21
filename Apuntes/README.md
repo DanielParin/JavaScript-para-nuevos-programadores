@@ -505,3 +505,228 @@ try{
   console.log("La ejecución del bloque try-catch ha finalizado.");
 }
 ```
+
+## Conceptos Avanzados II y WEB
+
+### Asincronía
+
+#### Template Literals
+
+  ```js
+  let nombre = "Dani";
+  console.log(`Hola ${nombre}, bienvenido!`); 
+  // Permiten incrustar variables y expresiones dentro de strings con `${}`
+  // Se usan con comillas invertidas (backticks `)
+  ```
+
+#### Promesas
+
+  ```js
+  let promesa = new Promise((resolve, reject) => {
+    let exito = true;
+    exito ? resolve("Todo OK") : reject("Error");
+  });
+  // Una promesa representa un valor que llegará en el futuro (asincronía)
+  // Una promesa puede tomar los valores de Pending, Fullfilled y Rejected.
+  promesa.then(console.log).catch(console.error);
+  ```
+
+#### Asincronía y async/await
+
+  ```js
+  async function obtenerDatos() {
+    try {
+      let respuesta = await fetch("https://api.example.com");
+      let datos = await respuesta.json();
+      console.log(datos);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+  // async marca la función como asíncrona
+  // await pausa la ejecución hasta que se resuelva la promesa
+  ```
+
+#### Web API: fetch
+
+  ```js
+  fetch("https://api.example.com")
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+  // fetch hace peticiones HTTP (GET, POST, etc.) y devuelve una promesa
+  ```
+
+#### Ajax con await
+
+  ```js
+  async function cargar() {
+    const res = await fetch("datos.json");
+    const data = await res.json();
+    console.log(data);
+  }
+  // Uso moderno de AJAX con async/await → más legible
+  ```
+
+### Estricto y Componentización
+
+#### Módulos JS
+
+  ```js
+  // archivo math.js
+  export function sumar(a, b) { return a + b; }
+
+  // archivo app.js
+  import { sumar } from './math.js';
+  console.log(sumar(2, 3)); // 5
+  // Los módulos permiten dividir el código en archivos reutilizables
+```
+
+### Entorno Web
+
+#### Local Storage
+
+  Almacena datos en el navegador de forma permanente (persisten al cerrar).
+
+  ```js
+  // Guardar datos
+  localStorage.setItem("usuario", "Ana");
+  localStorage.setItem("edad", "25");
+
+  // Obtener datos
+  let nombre = localStorage.getItem("usuario");
+  console.log(nombre); // Salida: Ana
+
+  // Eliminar un dato
+  localStorage.removeItem("edad");
+
+  // Limpiar todo
+  localStorage.clear();
+```
+
+#### Session Storage
+
+  Almacena datos solo durante la sesión actual (se borran al cerrar la pestaña).
+
+  ```js
+  // Guardar datos
+  sessionStorage.setItem("token", "abc123");
+
+  // Obtener datos
+  let token = sessionStorage.getItem("token");
+  console.log(token); // Salida: abc123
+
+  // Al cerrar la pestaña, los datos desaparecen
+```
+
+#### BabelJS
+
+  Convierte código JavaScript moderno a versiones antiguas para compatibilidad.
+
+  ```js
+  // Código moderno (ES6+)
+  const saludo = (nombre) => `Hola ${nombre}`;
+
+  // Babel lo convierte a:
+  var saludo = function(nombre) {
+    return "Hola " + nombre;
+  };
+  ```
+
+#### Webpack
+
+  Empaqueta y optimiza archivos JavaScript, CSS e imágenes en bundles.
+
+  ```js
+  // Estructura de proyecto:
+  // src/index.js
+  // src/utils.js
+
+  // index.js
+  import { sumar } from './utils.js';
+  console.log(sumar(2, 3));
+
+  // utils.js
+  export function sumar(a, b) {
+    return a + b;
+  }
+
+  // Webpack genera un único archivo bundle.js optimizado
+```
+
+### Testing
+
+#### Test Unitarios con MochaJS
+
+  Framework para escribir y ejecutar tests en JavaScript.
+
+  ```js
+  // Función a testear
+  function sumar(a, b) {
+    return a + b;
+  }
+
+  // Test con Mocha
+  describe('Función sumar', function() {
+    it('debe sumar dos números correctamente', function() {
+      let resultado = sumar(2, 3);
+      if (resultado !== 5) {
+        throw new Error('La suma no es correcta');
+      }
+    });
+  });
+
+  // Salida: debe sumar dos números correctamente
+```
+
+#### Cypress
+
+  Herramienta para testing de aplicaciones web end-to-end.
+
+  ```js
+  // Test de formulario
+  describe('Formulario de login', () => {
+    it('debe iniciar sesión correctamente', () => {
+      // Visitar página
+      cy.visit('https://ejemplo.com/login');
+      
+      // Llenar campos
+      cy.get('#usuario').type('ana@email.com');
+      cy.get('#password').type('123456');
+      
+      // Hacer clic en botón
+      cy.get('#btnLogin').click();
+      
+      // Verificar redirección
+      cy.url().should('include', '/dashboard');
+    });
+  });
+```
+
+#### Cucumber (BDD)
+
+  Testing basado en comportamiento usando lenguaje natural.
+
+  ```js
+  // Archivo .feature
+  // Característica: Login
+  // Escenario: Usuario inicia sesión exitosamente
+  //   Dado que el usuario está en la página de login
+  //   Cuando ingresa credenciales válidas
+  //   Entonces debe ver el dashboard
+
+  // Implementación en JavaScript
+  Given('el usuario está en la página de login', () => {
+    cy.visit('/login');
+  });
+
+  When('ingresa credenciales válidas', () => {
+    cy.get('#usuario').type('ana@email.com');
+    cy.get('#password').type('123456');
+    cy.get('#btnLogin').click();
+  });
+
+  Then('debe ver el dashboard', () => {
+    cy.url().should('include', '/dashboard');
+  });
+  ```
