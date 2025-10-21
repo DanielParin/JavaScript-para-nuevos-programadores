@@ -359,6 +359,7 @@ Los podemos dividir entre **definidos** e **indefinidos**:
 - **Definidos**
   
   Sabemos con certeza cuantas veces va a iterar.
+
   - Bucle **for**:
 
     El bucle for ejecuta un bloque de código un número determinado de veces usando un contador.
@@ -412,3 +413,95 @@ Los podemos dividir entre **definidos** e **indefinidos**:
       ```
 
 - **Indefinidos**
+
+  No podemos determinar cuantas veces se va a iterar sobre ellos ya que se basan en una condicion.
+
+  -**While**:
+
+    Mientras que se cumpla la condición entra e itera sobre él hasta que no se cumpla.
+
+    ```js
+    let number = 0;
+
+    while(number != 6){ // Si number es distinto de 6 entra e itera hasta que sea distinto de 6. SI NUMBER VALE 6 ANTES DE ENTRAR, NO ENTRA AL WHILE.
+      number++;
+    }
+  ```
+
+  -**Do While**:
+
+    El bucle do while hace lo mismo que el while pero minimo entra una vez al código.
+
+    ```js
+    let number = 0;
+
+    do{
+        number ++; // La parte del do se ejecuta mientras se cumpla la condición del while.
+    }while(number != 0 && number < 7); //Aqui vemos la diferencia con el while, ya que la primera vez que entra, number vale 0, pero al ejecutarse una vez sale valiendo 1.
+    ```
+
+### Generadores
+
+Los generadores en JavaScript son una forma especial de función que puede pausar su ejecución y reanudarla más tarde, recordando su estado entre llamadas.
+Se definen con un asterisco después de function y se retorna un valor con la palabra **yield**.
+
+```js
+function* contar() {
+  yield 1; //Entrega un valor y pausa la función en ese punto a esperas de llamarse después.
+  yield 2;
+  yield 3;
+}
+
+let generador = contar();
+
+console.log(generador.next()); // Retorna: { value: 1, done: false}
+console.log(generador.next()); // Retorna: { value: 2, done: false}
+console.log(generador.next()); // Retorna: { value: 3, done: false}
+console.log(generador.next()); // Retorna: { value: undefined, done: true} -> Una vez no hay mas valores se retorna valor undefined y  se indica que ya se ha acabado con el done.
+```
+
+### Expresiones Regulares
+
+Las expresiones regulares nos sirven para encontrar cadenas de texto en Strings.
+
+```js
+let expresionRegular = new RegExp(/[a-z]+/); //En este caso decimos que busque caracteres de la a-z, mínimo 1.
+
+let array = [12, true, "palabra","palabra", 3 , 5.12];
+
+for( let i in array){
+  if(i.match(expresionRegular)){ //Si la expresión regular se encuentra en i.
+    console.log("Se ha encontrado una cadena en minusculas.");
+  }
+}
+//Hay infinidad de posibilidades para las expresiones regulares, por lo que aquí solo hemos visto que son y su uso.
+```
+
+### Excepciones
+
+Las excepciones son eventos que ocurren durante la ejecución del programa y que interrumpen su flujo.
+Trataremos estas excepciones usando los métodos **try-catch**.
+
+```js
+let dividendo = 8;
+let divisor = 0;
+
+try{
+  //Aquí va la parte del código que puede soltarnos alguna excepción.
+  
+  if(divisor === 0){
+    throw new Error("División por cero no permitida."); //Lanzamos una excepción personalizada.
+  }
+  let resultado = dividendo / divisor; //Matematicamente no se puede dividir por cero, aunque en javascript no salte excepción, por eso la lanzamos nosotros.
+  console.log("El resultado de la división es: " + resultado);
+
+}catch(error){
+  //Aquí va la parte del código a ejecutarse si salta la excepción indicada.
+  console.log("Ha ocurrido un error al hacer la division. Error: " + error.message);
+
+} finally { // No es obligatorio poner el finally, solo el try-catch es obligatorio usarlo junto.
+
+  //Aqui va la parte de código que se ejecutará siempre, haya o no excepción.
+  console.log("La ejecución del bloque try-catch ha finalizado.");
+}
+```
